@@ -26,9 +26,19 @@ Construida en el marco del challenge de lógica de programación del Programa ON
 
 - `Sorteo del próximo amigo secreto`: Se realiza una selección aleatoria de uno de los amigos en el array. Internamente, se utiliza la longitud del array y las funciones `Math.random()` y `Math.floor()` para generar un número pseudo-aleatorio entre 0 y el índice final del array. Finalmente, se accede a un índice del array utilizando el índice aleatorio, se limpia la lista HTML y se muestra el resultado con un mensaje en el elemento HTML debajo del que se utiliza para el listado de amigos.
 
-## 🖼️ Imagen de la aplicación
+## 🖼️ Imagenes de la aplicación
+
+- Aplicación en el estado inicial -
 
 ![captura-app](https://github.com/cons-sys/amigo-secreto/blob/main/assets/captura-principal-proyecto.PNG)
+
+- Aplicación con un listado de amigos y un nombre válido en el campo de entrada -
+
+![captura-app](https://github.com/cons-sys/amigo-secreto/blob/main/assets/captura-lista-amigos-proyecto.PNG)
+
+- Aplicación con un sorteo realizado -
+
+![captura-app](https://github.com/cons-sys/amigo-secreto/blob/main/assets/captura-sorteo-proyecto.PNG)
 
 ## 👍 Condiciones de ingreso de nombres al listado
 Al ingresar una cadena, se aplica una serie de condiciones y validaciones para evitar cadenas que no representen realmente un nombre. La cadena:
