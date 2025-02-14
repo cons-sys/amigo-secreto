@@ -1,10 +1,13 @@
+// Inicializamos variables (array de amigos y mensajes)
 let userAmigos = [];
-let msjRecomendacion = "Por favor, ingresa un nombre válido.";
-let msjErrorVacío = "Intentaste agregar un campo vacío a la lista."
+let msjRecomendacion = "";
+let msjErrorVacio = "Intentaste agregar un campo vacío a la lista."
 let msjReglasNombre = `El nombre no puede contener: 
     - Caracteres no alfabéticos
-    - Espacio al inicio, al final o más de uno entre nombres. 
-    - Menos de dos caracteres para el primer nombre.`
+    - Espacio/s al inicio, al final o más de uno entre nombres
+    - Menos de dos caracteres para el primer nombre`
+let msjErrorRepeticion = "Intentaste agregar un nombre que ya está en la lista."
+let msjErrorSorteo = "¡Aún no puedes sortear! Tu lista tiene solo uno o ningún amigo."
 
 // Función validadora de nombres
 // La misma valida el nombre ingresado según si la cadena no contiene
@@ -42,38 +45,81 @@ function validarNombre(cadena) {
     return ((/^[A-ZÑÁÉÍÓÚ]{2,}(\s[A-ZÑÁÉÍÓÚ]+)*$/i.test(cadena)));
 }
 
+// Funcion que limpia el campo de un input dueño del id
 function limpiarCampoPorId(id){
     document.getElementById(id).value = "";
+    return;
 }
 
+// Función que limpia el contenido de un elemento HTML dueño del id
+function limpiarElementoHTML(id){
+    document.getElementById(id).innerHTML = "";
+    return;
+}
+
+// Función que agrega nombres al array, si cumplen con las condiciones
 function agregarAmigo() {
-    //Obtenemos el valor en el input
+    // Obtenemos el valor en el input
     let userInput = document.getElementById('amigo').value;
-    //Si el input está vacío o su cadena contiene caracteres no alfabéticos...
-    if (userInput === "" || (validarNombre(userInput) === !true)) {
+    // Definimos el mensaje de recomendación según el caso
+    msjRecomendacion = (userAmigos.includes(userInput) ? "¡Vuelve a intentarlo con otro nombre!" : "Por favor, ingresa un nombre válido.");
+    // Si el input está vacío, o su cadena contiene caracteres no alfabéticos
+    // o si el contenido del input ya está en la lista:
+    if (userInput === "" || (validarNombre(userInput) === !true) || (userAmigos.includes(userInput))) {
         if (userInput === "") {
             //Si el input está vacío devolvemos el alert correspondiente.
-            return alert(`${msjErrorVacío} ${msjRecomendacion}`);
-        } else {
-            //Si el input contiene un dígito devolvemos el alert correspondiente.
-            return alert(`${msjRecomendacion} ${msjReglasNombre}`
-);
+            return alert(`${msjErrorVacio} ${msjRecomendacion}`);
+        } else if (validarNombre(userInput) === !true){
+            //Si el input es desvalidado devolvemos el alert correspondiente.
+            return alert(`${msjRecomendacion} ${msjReglasNombre}`);
+        } else{
+            //Si el input ya está en la lista devolvemos un alert.
+            return alert(`${msjErrorRepeticion} ${msjRecomendacion}`)
         }
     }
-    // Si se ha logrado pasar la condición, se agrega el amigo a la lista,
-    // se limpia el input y se actualiza la lista desordenada 
+    // Si se ha logrado pasar la condición, se agrega el amigo al array.
+    // Se limpia el input y el resultado (si es que si hay), se actualiza la UL.
     else {
         userAmigos.push(userInput);
         limpiarCampoPorId('amigo');
+        limpiarElementoHTML('resultado');
         actualizarListaHTML(userAmigos);
     }
+    return;
 }
 
+// Función que actualiza la lista HTML en base al array de amigos.
 function actualizarListaHTML(listaAmigos) {
-    let listaHTML = document.querySelector('#listaAmigos')
-    listaHTML.innerHTML = ""
+    let listaHTML = document.querySelector('#listaAmigos');
+    limpiarElementoHTML('listaAmigos');
     for (let i = 0; i<userAmigos.length; i++){
-        let elemento = listaAmigos[i]
-        listaHTML.innerHTML += `<l1>${elemento}</li><br>`
+        let elemento = listaAmigos[i];
+        listaHTML.innerHTML += `<l1>${elemento}</li><br>`;
     }
+    return;
+}
+
+// Función que sortea un amigo en la lista de amigos.
+function sortearAmigo(){
+    //Si la longitud de la lista de amigos no es 0 y es mayor que 1:
+    if (userAmigos.length != 0 && userAmigos.length > 1){
+        //Definimos el índice aleatorio a partir de la longitud del array.
+        nroIndices = userAmigos.length;
+        indiceRandom = (Math.floor(Math.random()*nroIndices));
+        console.log(indiceRandom);
+
+        //Accedemos a un índice de la lista de amigos usando el índice aleatorio
+        amigoSorteado = userAmigos[indiceRandom];
+
+        //Limpiamos la lista HTML de amigos
+        limpiarElementoHTML('listaAmigos');
+
+        //Mostramos al usuario el resultado del sorteo
+        document.getElementById('resultado').innerHTML = `- Tu amigo secreto es... ¡${amigoSorteado}! -`;
+    
+    //Si la longitud de la lista de amigos es 0 o 1 mostramos un alert
+    } else {
+        alert(msjErrorSorteo);
+    }
+    return;
 }
