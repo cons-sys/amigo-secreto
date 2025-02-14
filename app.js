@@ -1,7 +1,12 @@
 let userAmigos = [];
 let msjRecomendacion = "Por favor, ingresa un nombre válido.";
+let msjErrorVacío = "Intentaste agregar un campo vacío a la lista."
+let msjReglasNombre = `El nombre no puede contener: 
+    - Caracteres no alfabéticos
+    - Espacio al inicio, al final o más de uno entre nombres. 
+    - Menos de dos caracteres para el primer nombre.`
 
-// Hola, supervisor/a! Tengo una función adicional que quise agregar personalmente a este challenge.
+// Función validadora de nombres
 // La misma valida el nombre ingresado según si la cadena no contiene
 // caracteres no alfabéticos ni espacios en lugares indebidos.
 // Explicación de la estructura:
@@ -18,7 +23,7 @@ Después de este grupo (opcional), le sigue:
 - La suma de un "$", delimitando el final del patrón con un caracter del rango 
 alfabetico. 
     Al cerrar las barras, se usa un modificador (i) para indeferenciar
-    el uso de mayúsculas y minúsculas, así evitamos alargar el patrón.
+el uso de mayúsculas y minúsculas, así evitamos alargar el patrón.
     
     Una expresión regular es un objeto, y puedo acceder a su método "test" que
 permite verificar si el patrón coincide con la cadena o no. Regresa un booleano
@@ -37,24 +42,38 @@ function validarNombre(cadena) {
     return ((/^[A-ZÑÁÉÍÓÚ]{2,}(\s[A-ZÑÁÉÍÓÚ]+)*$/i.test(cadena)));
 }
 
+function limpiarCampoPorId(id){
+    document.getElementById(id).value = "";
+}
+
 function agregarAmigo() {
     //Obtenemos el valor en el input
     let userInput = document.getElementById('amigo').value;
-    console.log(validarNombre(userInput));
     //Si el input está vacío o su cadena contiene caracteres no alfabéticos...
     if (userInput === "" || (validarNombre(userInput) === !true)) {
         if (userInput === "") {
             //Si el input está vacío devolvemos el alert correspondiente.
-            return alert(`Intentaste agregar un campo vacío a la lista. ${msjRecomendacion}`);
+            return alert(`${msjErrorVacío} ${msjRecomendacion}`);
         } else {
             //Si el input contiene un dígito devolvemos el alert correspondiente.
-            return alert(`El nombre no puede contener caracteres no alfabéticos ni doble espacio. ${msjRecomendacion}`);
+            return alert(`${msjRecomendacion} ${msjReglasNombre}`
+);
         }
     }
-    //Si se ha logrado pasar la condición, se agrega el amigo a la lista.
+    // Si se ha logrado pasar la condición, se agrega el amigo a la lista,
+    // se limpia el input y se actualiza la lista desordenada 
     else {
         userAmigos.push(userInput);
-        console.log(userAmigos);
-        document.getElementById('amigo').value = "";
+        limpiarCampoPorId('amigo');
+        actualizarListaHTML(userAmigos);
+    }
+}
+
+function actualizarListaHTML(listaAmigos) {
+    let listaHTML = document.querySelector('#listaAmigos')
+    listaHTML.innerHTML = ""
+    for (let i = 0; i<userAmigos.length; i++){
+        let elemento = listaAmigos[i]
+        listaHTML.innerHTML += `<l1>${elemento}</li><br>`
     }
 }
