@@ -106,7 +106,6 @@ function sortearAmigo(){
         //Definimos el índice aleatorio a partir de la longitud del array.
         nroIndices = userAmigos.length;
         indiceRandom = (Math.floor(Math.random()*nroIndices));
-        console.log(indiceRandom);
 
         //Accedemos a un índice de la lista de amigos usando el índice aleatorio
         amigoSorteado = userAmigos[indiceRandom];
