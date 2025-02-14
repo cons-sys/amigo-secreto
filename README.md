@@ -13,9 +13,9 @@ Construida en el marco del challenge de lógica de programación del Programa ON
 
 ## 🖥️ Lenguajes utilizados
 
-![image](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![image](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![image](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
 
 
 ## 🛠️ Funcionalidades de la aplicación
@@ -26,7 +26,9 @@ Construida en el marco del challenge de lógica de programación del Programa ON
 
 - `Sorteo del próximo amigo secreto`: Se realiza una selección aleatoria de uno de los amigos en el array. Internamente, se utiliza la longitud del array y las funciones `Math.random()` y `Math.floor()` para generar un número pseudo-aleatorio entre 0 y el índice final del array. Finalmente, se accede a un índice del array utilizando el índice aleatorio, se limpia la lista HTML y se muestra el resultado con un mensaje en el elemento HTML debajo del que se utiliza para el listado de amigos.
 
-![img]
+## 🖼️ Imagen de la aplicación
+
+![captura-app](https://github.com/cons-sys/amigo-secreto/blob/main/assets/captura-principal-proyecto.PNG)
 
 ## 👍 Condiciones de ingreso de nombres al listado
 Al ingresar una cadena, se aplica una serie de condiciones y validaciones para evitar cadenas que no representen realmente un nombre. La cadena:
